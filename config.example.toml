@@ -1,0 +1,63 @@
+# 狐友 MCP 配置（复制成 config.toml 后按需修改；只浏览不建也能跑）
+# 所有键都支持环境变量覆盖（见 README）。
+
+[account]
+# 登录态（扫码登录后自动写入）；只读浏览不需要登录
+cookies_file = "data/cookies.json"
+
+[watch]
+# 想跟踪的学校圈子：填学校名即可，程序自动搜圈子并缓存圈子 id
+schools = ["中国海洋大学"]
+# 也可以直接写圈子 id（`huyou-mcp circles --search 关键词` 可查）
+circle_ids = []
+# 抓取排序：new=新发 / reply=新回 / hot=热门 / elite=精华
+sorts = ["new"]
+# 每页条数
+per_circle = 20
+# 最多翻几页（10 页 ≈ 200 条/圈，覆盖活跃圈子一天的量）
+max_pages_per_circle = 10
+# 只推送这个时间窗内的帖子（小时）
+max_age_hours = 36
+# 评论数 >= 这个值的帖子算「有讨论」，邮件里重点展示
+hot_comment_threshold = 2
+# 置顶帖多是圈公告/商单，true 表示跳过
+skip_top = false
+
+[mail]
+enabled = false
+host = "smtp.qq.com"
+port = 465
+user = "你的QQ号@qq.com"
+# QQ 邮箱「授权码」，不是登录密码：
+# mail.qq.com → 设置 → 账户 → 开启 POP3/SMTP 服务 → 生成授权码
+password = ""
+sender_name = "狐友小助手"
+# 收件人，留空则发给自己
+to = []
+subject_prefix = "【狐友】"
+# 一封邮件里最多展示多少条（其余只在本地存档里）
+max_posts = 120
+# true = 只推「有讨论」的帖子（评论区有人回的那种），其余只在本地存档
+only_hot = false
+# 给「有讨论」的帖子附上前几条评论（过滤狐友AI助手的自动回复）
+include_comments = true
+comment_preview_count = 3
+
+[write]
+# 评论 / 点赞总开关，默认关闭。开启前必须扫码登录。
+enabled = false
+
+[filter]
+# 只推送「有实用信息」的帖子：校园跑技巧、老师/选课评价、考试复习资料、
+# 办事流程、食堂快递失物招领、活动通知等。
+# 抱怨骂人、找对象、打探钱、八卦、广告、纯水贴会被过滤掉，不进邮箱。
+enabled = true
+# 打分门槛：命中越多实用主题分越高，>= min_score 才推
+min_score = 2
+# 额外想让它们「一定推」的词（子串匹配，命中算 +2 分）
+extra_useful = []
+# 额外想让它们「一定不推」的词（子串匹配，命中算 -2 分）
+extra_noise = []
+
+[paths]
+data_dir = "data"

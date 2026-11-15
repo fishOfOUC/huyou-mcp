@@ -1,0 +1,10 @@
+[account]
+cookies_file = "data_test/cookies.json"
+[watch]
+schools = ["中国政法大学"]
+per_circle = 10
+max_age_hours = 48
+[mail]
+enabled = false
+[paths]
+data_dir = "data_test"
